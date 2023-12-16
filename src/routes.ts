@@ -14,4 +14,14 @@ export async function routes(fastify: FastifyInstance) {
       return reply.send(await contactController.getContactByName(name, reply));
     }
   );
+
+  fastify.post(
+    "/contact",
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const contactController: IContactController = new ContactController();
+      const { body: contact } = request;
+
+      return reply.send(await contactController.createContact(contact, reply));
+    }
+  );
 }
