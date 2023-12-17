@@ -25,14 +25,23 @@ Phone.init(
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
+      validate: {
+        len: [0, 14],
+      },
     },
     contactId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        len: [0, 14],
+      },
     },
     number: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        len: [0, 16],
+      },
     },
   },
   {

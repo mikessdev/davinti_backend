@@ -7,14 +7,14 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(14),
       },
       contactId: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER(14),
       },
       number: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(16),
       },
     });
     await queryInterface.addConstraint("Phones", {

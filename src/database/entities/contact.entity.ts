@@ -26,14 +26,23 @@ Contact.init(
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
+      validate: {
+        len: [0, 14],
+      },
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        len: [0, 100],
+      },
     },
     age: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        len: [0, 3],
+      },
     },
   },
   {
