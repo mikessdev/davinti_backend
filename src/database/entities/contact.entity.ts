@@ -28,7 +28,7 @@ Contact.init(
       autoIncrement: true,
     },
     name: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     age: {

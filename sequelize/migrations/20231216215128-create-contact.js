@@ -6,14 +6,14 @@ module.exports = {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.INTEGER(14),
+        type: Sequelize.INTEGER,
         autoIncrement: true,
       },
       name: {
-        type: Sequelize.STRING(100),
+        type: Sequelize.STRING,
       },
       age: {
-        type: Sequelize.INTEGER(3),
+        type: Sequelize.INTEGER,
       },
     });
   },

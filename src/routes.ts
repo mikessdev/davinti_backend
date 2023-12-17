@@ -12,12 +12,11 @@ import { Phone } from "@utils/types/phone.type";
 
 export async function routes(fastify: FastifyInstance) {
   fastify.get(
-    "/contact/:name",
+    "/contact",
     async (request: FastifyRequest, reply: FastifyReply) => {
       const contactController: IContactController = new ContactController();
-      const { name } = request.params;
 
-      return reply.send(await contactController.getContactByName(name, reply));
+      return reply.send(await contactController.getContact(request, reply));
     }
   );
 
@@ -30,6 +29,28 @@ export async function routes(fastify: FastifyInstance) {
       return reply.send(
         await contactController.createContact(contact as Contact, reply)
       );
+    }
+  );
+
+  fastify.put(
+    "/contact",
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const contactController: IContactController = new ContactController();
+      const { body: contact } = request;
+
+      return reply.send(
+        await contactController.updateContact(contact as Contact, reply)
+      );
+    }
+  );
+
+  fastify.delete(
+    "/contact/:id",
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const contactController: IContactController = new ContactController();
+      const { id } = request.params;
+
+      return reply.send(await contactController.deleteContact(id, reply));
     }
   );
 

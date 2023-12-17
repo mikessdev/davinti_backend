@@ -6,7 +6,10 @@ import {
 
 export interface IContactService {
   getContactByName: (name: string) => Promise<Contact[]>;
+  getContactByPhoneNumber: (phoneNumber: string) => Promise<Contact[]>;
   createContact: (contact: Contact) => Promise<Contact>;
+  updateContact: (contact: Contact) => Promise<number[]>;
+  deleteContact: (id: number) => Promise<number>;
 }
 
 export class ContactService implements IContactService {
@@ -16,7 +19,19 @@ export class ContactService implements IContactService {
     return await this.repository.getContactByName(name);
   }
 
+  async getContactByPhoneNumber(number: string): Promise<Contact[]> {
+    return await this.repository.getContactByPhoneNumber(number);
+  }
+
   async createContact(contact: Contact): Promise<Contact> {
     return await this.repository.createContact(contact);
+  }
+
+  async updateContact(contact: Contact): Promise<number[]> {
+    return this.repository.updateContact(contact);
+  }
+
+  async deleteContact(id: number): Promise<number> {
+    return await this.repository.deleteContact(id);
   }
 }
