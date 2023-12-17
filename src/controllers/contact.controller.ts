@@ -1,17 +1,19 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import { FastifyReply } from "fastify";
 import { ContactService, IContactService } from "@services/contact.service";
+import { Contact } from "@utils/types/contact.type";
 
 export interface IContactController {
-  getContactByName: (name: string, reply: FastifyReply) => Promise<Contact>;
+  getContactByName: (name: string, reply: FastifyReply) => Promise<Contact[]>;
   createContact: (contact: Contact, reply: FastifyReply) => Promise<Contact>;
 }
-
-export type Contact = {};
 
 export class ContactController implements IContactController {
   private readonly service: IContactService = new ContactService();
 
-  async getContactByName(name: string, reply: FastifyReply): Promise<Contact> {
+  async getContactByName(
+    name: string,
+    reply: FastifyReply
+  ): Promise<Contact[]> {
     if (!name) {
       reply.code(422);
       throw new Error("Preencha o campo nome!");
@@ -21,10 +23,6 @@ export class ContactController implements IContactController {
   }
 
   async createContact(contact: Contact, reply: FastifyReply): Promise<Contact> {
-    if (!contact) {
-      reply.code(422);
-      throw new Error("Preencha o campo de contato!");
-    }
     return await this.service.createContact(contact);
   }
 }

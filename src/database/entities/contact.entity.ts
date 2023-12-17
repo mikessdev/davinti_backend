@@ -1,16 +1,30 @@
-import { Sequelize, DataTypes, Model } from "sequelize";
+import {
+  Sequelize,
+  DataTypes,
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+} from "sequelize";
 import { database } from "@database/database.config";
 
 const sequelize: Sequelize = database;
 
-export class Contact extends Model {}
+export class Contact extends Model<
+  InferAttributes<Contact>,
+  InferCreationAttributes<Contact>
+> {
+  id: number;
+  name: string;
+  age: number;
+}
 
 Contact.init(
   {
     id: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
+      autoIncrement: true,
     },
     name: {
       type: DataTypes.STRING,
@@ -22,6 +36,7 @@ Contact.init(
     },
   },
   {
+    timestamps: false,
     sequelize,
     modelName: "Contact",
   }
