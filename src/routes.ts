@@ -60,9 +60,27 @@ export async function routes(fastify: FastifyInstance) {
       const phoneController: IPhoneController = new PhoneController();
       const { body: phone } = request;
 
-      return reply.send(
-        await phoneController.createPhone(phone as Phone, reply)
-      );
+      return reply.send(await phoneController.createPhone(phone as Phone));
+    }
+  );
+
+  fastify.delete(
+    "/phone/:id",
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const phoneController: IPhoneController = new PhoneController();
+      const { id } = request.params;
+
+      return reply.send(await phoneController.deletePhone(id, reply));
+    }
+  );
+
+  fastify.put(
+    "/phone",
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const phoneController: IPhoneController = new PhoneController();
+      const { body: phone } = request;
+
+      return reply.send(await phoneController.updatePhone(phone as Phone));
     }
   );
 }

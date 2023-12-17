@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { ContactService, IContactService } from "@services/contact.service";
 import { Contact } from "@utils/types/contact.type";
+import { Message } from "@utils/types/message.type";
 
 export interface IContactController {
   getContact: (
@@ -9,12 +10,8 @@ export interface IContactController {
   ) => Promise<Contact[]>;
   createContact: (contact: Contact, reply: FastifyReply) => Promise<Contact>;
   updateContact: (contact: Contact, reply: FastifyReply) => Promise<number[]>;
-  deleteContact: (id: number, reply: FastifyReply) => Promise<message>;
+  deleteContact: (id: number, reply: FastifyReply) => Promise<Message>;
 }
-
-type message = {
-  message: string;
-};
 
 export class ContactController implements IContactController {
   private readonly service: IContactService = new ContactService();
@@ -44,7 +41,7 @@ export class ContactController implements IContactController {
     return this.service.updateContact(contact);
   }
 
-  async deleteContact(id: number, reply: FastifyReply): Promise<message> {
+  async deleteContact(id: number, reply: FastifyReply): Promise<Message> {
     const result: number = await this.service.deleteContact(id);
     const contactHasBeenDeleted: boolean = result === 1;
 
