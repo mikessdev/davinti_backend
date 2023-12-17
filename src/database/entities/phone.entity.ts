@@ -6,20 +6,19 @@ import {
   InferCreationAttributes,
 } from "sequelize";
 import { database } from "@database/database.config";
-import { Phone } from "./phone.entity";
 
 const sequelize: Sequelize = database;
 
-export class Contact extends Model<
-  InferAttributes<Contact>,
-  InferCreationAttributes<Contact>
+export class Phone extends Model<
+  InferAttributes<Phone>,
+  InferCreationAttributes<Phone>
 > {
   id: number;
-  name: string;
-  age: number;
+  contactId: number;
+  number: string;
 }
 
-Contact.init(
+Phone.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -27,27 +26,18 @@ Contact.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    name: {
-      type: DataTypes.STRING(100),
+    contactId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    age: {
-      type: DataTypes.INTEGER,
+    number: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },
   {
     timestamps: false,
     sequelize,
-    modelName: "Contact",
+    modelName: "Phone",
   }
 );
-
-Contact.hasMany(Phone, {
-  foreignKey: "contactId",
-  onDelete: "CASCADE",
-});
-
-Phone.belongsTo(Contact, {
-  foreignKey: "contactId",
-});
