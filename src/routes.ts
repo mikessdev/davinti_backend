@@ -32,7 +32,7 @@ export async function routes(fastify: FastifyInstance) {
     }
   );
 
-  fastify.put(
+  fastify.patch(
     "/contact",
     async (request: FastifyRequest, reply: FastifyReply) => {
       const contactController: IContactController = new ContactController();
@@ -74,7 +74,7 @@ export async function routes(fastify: FastifyInstance) {
     }
   );
 
-  fastify.put(
+  fastify.patch(
     "/phone",
     async (request: FastifyRequest, reply: FastifyReply) => {
       const phoneController: IPhoneController = new PhoneController();

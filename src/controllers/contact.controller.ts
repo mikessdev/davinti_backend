@@ -29,8 +29,7 @@ export class ContactController implements IContactController {
       return await this.service.getContactByPhoneNumber(phoneNumber);
     }
 
-    reply.code(422);
-    throw new Error("You need to put a query to search: name or phoneNumber!");
+    return await this.service.findAll();
   }
 
   async createContact(contact: Contact, reply: FastifyReply): Promise<Contact> {

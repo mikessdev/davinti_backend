@@ -5,6 +5,7 @@ export interface IContactRepository {
   createContact: (contact: Contact) => Promise<Contact>;
   getContactByName: (name: string) => Promise<Contact[]>;
   getContactByPhoneNumber: (phoneNumber: string) => Promise<Contact[]>;
+  findAll: () => Promise<Contact[]>;
   deleteContact: (id: number) => Promise<number>;
   updateContact: (contact: Contact) => Promise<number[]>;
 }
@@ -35,10 +36,25 @@ export class ContactRepository implements IContactRepository {
     }
   }
 
+  async findAll(): Promise<Contact[]> {
+    try {
+      const result: Contact[] = await ContactEntity.findAll({
+        raw: true,
+        nest: true,
+      });
+      return result;
+    } catch (error) {
+      throw new Error("Unable to reach contacts!");
+    }
+  }
+
   async getContactByPhoneNumber(phoneNumber: string): Promise<Contact[]> {
     try {
       const result: Contact[] = await ContactEntity.findAll({
-        include: { model: PhoneEntity, where: { number: phoneNumber } },
+        include: {
+          model: PhoneEntity,
+          where: { number: phoneNumber },
+        },
         nest: true,
       });
       return result;
